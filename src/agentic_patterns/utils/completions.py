@@ -1,17 +1,40 @@
 def completions_create(client, messages: list, model: str) -> str:
     """
-    Sends a request to the client's `completions.create` method to interact with the language model.
+    Sends a request to the client's chat_completion method to interact with the language model.
 
     Args:
-        client (Groq): The Groq client object
+        client (DeepSeekAPI): The DeepSeekAPI client object
         messages (list[dict]): A list of message objects containing chat history for the model.
         model (str): The model to use for generating tool calls and responses.
 
     Returns:
         str: The content of the model's response.
     """
-    response = client.chat.completions.create(messages=messages, model=model)
-    return str(response.choices[0].message.content)
+    # Extract system prompt and user messages for DeepSeekAPI
+    system_prompt = ""
+    user_messages = []
+    
+    for message in messages:
+        if message["role"] == "system":
+            system_prompt = message["content"]
+        elif message["role"] == "user":
+            user_messages.append(message["content"])
+        elif message["role"] == "assistant":
+            # For assistant messages, we'll include them in the user messages
+            # DeepSeekAPI doesn't have a direct assistant role, so we'll append them
+            user_messages.append(f"Assistant: {message['content']}")
+    
+    # Combine all user messages into a single prompt
+    combined_prompt = "\n".join(user_messages)
+    
+    # Use DeepSeekAPI's chat_completion method
+    response = client.chat_completion(
+        prompt=combined_prompt,
+        prompt_sys=system_prompt,
+        model=model
+    )
+    
+    return str(response)
 
 
 def build_prompt_structure(prompt: str, role: str, tag: str = "") -> dict:

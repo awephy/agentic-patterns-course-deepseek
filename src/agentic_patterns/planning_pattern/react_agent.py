@@ -1,9 +1,10 @@
 import json
 import re
+import os
 
 from colorama import Fore
 from dotenv import load_dotenv
-from groq import Groq
+from deepseek import DeepSeekAPI
 
 from agentic_patterns.tool_pattern.tool import Tool
 from agentic_patterns.tool_pattern.tool import validate_arguments
@@ -63,7 +64,7 @@ class ReactAgent:
     collect tool signatures, and process multiple tool calls in a given round of interaction.
 
     Attributes:
-        client (Groq): The Groq client used to handle model-based completions.
+        client (DeepSeekAPI): The DeepSeekAPI client used to handle model-based completions.
         model (str): The name of the model used for generating responses. Default is "llama-3.3-70b-versatile".
         tools (list[Tool]): A list of Tool instances available for execution.
         tools_dict (dict): A dictionary mapping tool names to their corresponding Tool instances.
@@ -72,10 +73,13 @@ class ReactAgent:
     def __init__(
         self,
         tools: Tool | list[Tool],
-        model: str = "llama-3.3-70b-versatile",
+        model: str = "deepseek-chat",
         system_prompt: str = BASE_SYSTEM_PROMPT,
     ) -> None:
-        self.client = Groq()
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            raise ValueError("DEEPSEEK_API_KEY environment variable is required. Please set it in your .env file or environment.")
+        self.client = DeepSeekAPI(api_key=api_key)
         self.model = model
         self.system_prompt = system_prompt
         self.tools = tools if isinstance(tools, list) else [tools]

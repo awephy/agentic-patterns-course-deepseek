@@ -1,9 +1,10 @@
 import json
 import re
+import os
 
 from colorama import Fore
 from dotenv import load_dotenv
-from groq import Groq
+from deepseek import DeepSeekAPI
 
 from agentic_patterns.tool_pattern.tool import Tool
 from agentic_patterns.tool_pattern.tool import validate_arguments
@@ -44,16 +45,19 @@ class ToolAgent:
     Attributes:
         tools (Tool | list[Tool]): A list of tools available to the agent.
         model (str): The model to be used for generating tool calls and responses.
-        client (Groq): The Groq client used to interact with the language model.
+        client (DeepSeekAPI): The DeepSeekAPI client used to interact with the language model.
         tools_dict (dict): A dictionary mapping tool names to their corresponding Tool objects.
     """
 
     def __init__(
         self,
         tools: Tool | list[Tool],
-        model: str = "llama-3.3-70b-versatile",
+        model: str = "deepseek-chat",
     ) -> None:
-        self.client = Groq()
+        api_key = os.getenv("DEEPSEEK_API_KEY")
+        if not api_key:
+            raise ValueError("DEEPSEEK_API_KEY environment variable is required. Please set it in your .env file or environment.")
+        self.client = DeepSeekAPI(api_key=api_key)
         self.model = model
         self.tools = tools if isinstance(tools, list) else [tools]
         self.tools_dict = {tool.name: tool for tool in self.tools}
