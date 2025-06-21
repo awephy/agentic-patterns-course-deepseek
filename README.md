@@ -3,7 +3,7 @@
 <h3 align="center">Implementing the agentic patterns using DeepSeek</h3>
 
 <p align="center">
-    <img alt="logo" src="img/deekseek.png" width=200 />
+    <img alt="logo" src="img/deepseek.png" width=200 />
 </p>
 
 > No LangChain, no LangGraph, no LlamaIndex, no CrewAI. Pure and simple API calls to DeepSeek.
