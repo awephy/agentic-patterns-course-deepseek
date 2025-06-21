@@ -1,14 +1,12 @@
-<p align="center">
-    <img alt="logo" src="img/agentic_patterns.png" width=600 />
-    <h1 align="center">Agentic Patterns</h1>
-    <h3 align="center">Implementing the agentic patterns using Groq</h3>
-</p>
+# Agentic Patterns from Scratch
+
+<h3 align="center">Implementing the agentic patterns using DeepSeek</h3>
 
 <p align="center">
-    <img alt="logo" src="img/groq.png" width=200 />
+    <img alt="logo" src="img/deekseek.png" width=200 />
 </p>
 
-> No LangChain, no LangGraph, no LlamaIndex, no CrewAI. Pure and simple API calls to Groq.
+> No LangChain, no LangGraph, no LlamaIndex, no CrewAI. Pure and simple API calls to DeepSeek.
 
 ## Table of Contents
 
@@ -21,21 +19,23 @@
 - [2. The 4 Agentic Patterns](#the-4-agentic-patterns)
 
 - [3. Installation](#installation)
-- [4. Groq API Key](#groq-api-key)
-- [5. Usage](#usage)
+- [4. Project Structure](#project-structure)
+- [5. Agentic Patterns](#agentic-patterns)
+- [6. DeepSeek API Key](#deepseek-api-key)
+- [7. Usage](#usage)
   - [5.1 Using a Reflection Agent - Reflection Pattern](#using-a-reflection-agent---reflection-pattern)
   - [5.2 Creating and Using Tools - Tool Use Pattern](#creating-and-using-tools---tool-use-pattern)
   - [5.3 Reasoning with a ReAct Agent - Planning Pattern](#reasoning-with-a-react-agent---planning-pattern)
   - [5.4 Defining and running a Crew of Agents - MultiAgent Pattern](#defining-and-running-a-crew-of-agents---multiagent-pattern)
-- [6. Recommended Workflow](#recommended-workflow)
-- [7. Star History](#star-history)
+- [8. Recommended Workflow](#recommended-workflow)
+- [9. Star History](#star-history)
 
 
 ## Introduction
 
 This repository contains an implementation of the 4 agentic patterns as defined by Andrew Ng in his DeepLearning.AI [blog article series](https://www.deeplearning.ai/the-batch/how-agents-can-improve-llm-performance/?ref=dl-staging-website.ghost.io).
 
-Here’s a description of the four patterns we will be implementing.
+Here's a description of the four patterns we will be implementing.
 
 
 ## The 4 Agentic patterns
@@ -175,13 +175,47 @@ pip install -U agentic-patterns
 
 ---
 
-## Groq API Key
+## Project Structure
 
-This project works with [Groq](https://groq.com/) as the LLM provider, so you'll need to create an API Key in this platform.
+The project is organized as follows:
 
-When you have your API Key copy and paste it in an `.env` file.
+- `notebooks/`: This directory contains Jupyter notebooks used for experimentation and understanding the patterns.
+- `src/`: This directory contains the implementation of the patterns and related helper methods.
 
-The content of this `.env` file should match the structure of the `.env.example` I've created in the repo, but instead of an empty string, the `GROQ_API_KEY` var will contain your API Key.
+## Agentic Patterns
+
+This section describes the four agentic patterns implemented in the project.
+
+## DeepSeek API Key
+
+This project works with [DeepSeek](https://www.deepseek.com/) as the LLM provider, so you'll need to create an API Key in this platform.
+
+To get your API Key, follow these steps:
+
+1. Go to [DeepSeek Console](https://console.deepseek.com/)
+2. Sign up or log in to your account
+3. Navigate to the API Keys section
+4. Create a new API Key
+5. Copy the API Key and add it to your environment variables
+
+You can set the API Key in several ways:
+
+**Option 1: Environment Variable**
+```bash
+export DEEPSEEK_API_KEY="your-api-key-here"
+```
+
+**Option 2: .env file**
+Create a `.env` file in the project root and add:
+```
+DEEPSEEK_API_KEY=your-api-key-here
+```
+
+**Option 3: Programmatically (for testing)**
+```python
+import os
+os.environ["DEEPSEEK_API_KEY"] = "your-api-key-here"
+```
 
 ---
 
@@ -414,7 +448,8 @@ The reason I've decided to implement the 4 Agentic Patterns from scratch was to 
 
 Given this, this is my recommended learning workflow:
 
-1️⃣ Start with the YouTube video, ideally following my explanations with your own Jupyter Notebook.
+1️⃣ Start with the YouTube video, ideally following my explanations with your own 
+.
 
 2️⃣ Play with the code in the Jupyter Notebook: make changes, modify the prompts, create new examples etc. Get comfortable with the pattern fundamentals and basic concepts.
 
